@@ -149,22 +149,25 @@ ul{
         opacity: 0;
     }
 }
+.hidden{
+    z-index: -1;
+    opacity: 0;
+}
 
 .hide{
-    animation: hide-form 500ms;
-    opacity: 0;
+    animation: hide-form 300ms;
 }
 
 .show{
     display: block;
-    animation: show-form 500ms;
+    z-index: 10;
+    animation: show-form 300ms;
 }
 
 .formulaire-contact{
     width: 35em;
     height: 43em;
     position: fixed;
-    z-index: 10;
     background-color: white;
     border: solid 5px;
     border-color: black;
