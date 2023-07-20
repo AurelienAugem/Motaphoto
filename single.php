@@ -4,19 +4,20 @@
   <?php if (have_posts()) : ?>
     <?php while (have_posts()) : the_post(); ?>
       <div class="post">
-        <h1 class="post-title"><?php the_title(); ?></h1>
-        <p class="post-info">
-          Posté le <?php the_date(); ?> dans <?php the_category(', '); ?> par <?php the_author(); ?>.
-        </p>
+        <div class="post-desc">
+          <h2 class="post-title"><?php the_title(); ?></h2>
+          <p class="post-info">Référence : <?php echo get_post_meta(get_the_ID(),'reference', true) ?></p>
+          <p class="post-info">Catégorie : <?php the_terms($post->ID,'categorie'); ?></p>
+          <p class="post-info">Format : <?php the_terms($post->ID,'format'); ?></p>
+          <p class="post-info">Type : <?php echo get_post_meta(get_the_ID(),'type', true) ?></p>
+          <p class="post-info">Année : <?php the_date('Y'); ?></p>
+          <div class="post-border"></div>
+        </div>
         <div class="post-content">
           <?php the_content(); ?>
-        </div>
-        <div class="post-comments">
-          <?php comments_template(); ?>
         </div>
       </div>
     <?php endwhile; ?>
   <?php endif; ?>
 </div>
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>
