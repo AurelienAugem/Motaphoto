@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * Proper ob_end_flush() for all levels
+ *
+ * This replaces the WordPress `wp_ob_end_flush_all()` function
+ * with a replacement that doesn't cause PHP notices.
+ */
+remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
+add_action( 'shutdown', function() {
+   while ( @ob_end_flush() );
+} );
+
 //Chargement du fichier CSS
 function motaphoto_style(){
     wp_enqueue_style('style', get_stylesheet_directory_uri() . '/style.css');
@@ -37,3 +49,10 @@ function motaphoto_footer_text($text, $menuFooter){
     return $text;
 }
 add_filter('wp_nav_menu_items', 'motaphoto_footer_text', 10, 2);
+
+//Récupérer la catégorie d'une photo
+function motaphoto_taxo($args){
+    foreach ($args as $arg) {
+        $taxonomie = $arg->name;
+    }return $taxonomie;
+}

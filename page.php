@@ -10,5 +10,29 @@
           endwhile;
       endif;
   ?>
+  <?php if(is_front_page()): ?>
+    <section class="main-gallery">
+      <div class="filters">
+        <?php get_template_part('templates/filters'); ?>
+      </div>
+      <div class="gallery">
+      <?php 
+                $args = array(
+                  'post_type' => 'photo_mota',
+                  'posts_per_page' => 8,
+                );
+                $query = new wp_query($args);
+                if($query->have_posts()) : while($query->have_posts()) : 
+                  $query->the_post();
+          ?>     
+          <?php get_template_part('templates/photo_block');?>
+          <?php   
+            endwhile; endif;
+            wp_reset_postdata();
+          ?>
+      </div>
+      <input type="submit" class="mota-btn load-more" value="Charger plus">
+    </section>
+   <?php endif; ?>
 </div>
 <?php get_footer(); ?>
