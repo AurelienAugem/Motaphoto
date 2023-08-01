@@ -403,7 +403,8 @@ ul{
     display: flex;
     align-self: center;
 }
-.photo-filters{
+/********** Filtres  ***********/
+.btn-filters{
     width: 260px;
     height: 42px;
     border: solid 1px;
@@ -411,11 +412,55 @@ ul{
     border-color: #b8bbc2;
     font-family: 'poppinsmedium';
     font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 3%;
-    background-color: white;
-    color: #313144;   
+    background-color: white;    
+    box-sizing: border-box; 
 }
+.titre-filtre{
+    font-family: 'poppinsmedium';
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 0 10px;
+    cursor: pointer;
+    user-select: none;
+}
+.btn-filters li:hover{
+    background-color: #ffd6d6;
+    cursor: pointer;
+}
+.titre-filtre:after{
+    float: right;
+    content: '>';
+    font-size: 18px;
+    transform: rotate(var(--rotate,90deg));
+    transform-origin: center;
+    transition: transform 250ms linear;
+}
+.filter-hide{
+    display: none;
+}
+.btn-filters ul li{
+    padding: 11px 24px;
+}
+.btn-filters ul li a{
+    user-select: none;
+    color: #313144;
+}
+.show-filter{
+    box-sizing: border-box;
+    position: relative;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+    background-color: white;
+}
+/**************Animation des filtres***************/
+
+
+
+
 .memooutlinefiltre{
     outline: auto;
     outline-color: #215aff;
