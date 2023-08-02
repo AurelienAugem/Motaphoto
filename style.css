@@ -7,6 +7,7 @@ Description: Thème du site Motaphoto
 Version: 1.0
 */
 
+/********************************** Import local des polices ************************************/
 @font-face {
     font-family: 'space_monobold_italic';
     src: url('./assets/fonts/spacemono-bolditalic-webfont.woff2') format('woff2');
@@ -41,7 +42,7 @@ Version: 1.0
     font-family: 'poppinsbold';
     src: url('./assets/fonts/poppins-bold-webfont.woff2') format('woff2');
 }
-
+/**************************** Configuration générale **********************************/
 h1{
     font-family: 'space_monobold_italic';
     font-size: 96px;
@@ -275,12 +276,7 @@ ul{
     font-family: 'space_monoregular';
     text-transform: uppercase;
 }
-.post-info a{
-    text-decoration: none;
-    color: black;
-    pointer-events: none;
-	cursor: text;
-}
+
 .wp-block-post-date{
     display: none;
 }
@@ -356,10 +352,59 @@ ul{
     display: flex;
     align-self: center;
 }
+
 .card figure img{
     height: 495px;
     width: 564px;
     object-fit: cover;
+}
+.image-card{
+    position: relative;
+}
+.card-overlay{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    z-index: 3;
+    transition: 300ms ease;
+}
+.card-overlay:hover{
+    opacity: 1;
+}
+.fullscreen{
+    height: 34px;
+    width: 34px;
+    background-image: url("./assets/images/Icon_fullscreen.png");
+    background-position: center;
+    background-size: contain;
+    margin: 10px 20px;
+    align-self: end;
+}
+.photo-link{
+    height: 31px;
+    width: 46px;
+    background-image: url("./assets/images/Icon_eye.png");
+    background-position: center;
+    background-size: contain;
+    align-self: center;
+}
+.photo-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.text-tax{
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    user-select: none;
 }
 /******************* Galerie ***************************/
 .page{
@@ -396,7 +441,7 @@ ul{
     flex-wrap: wrap;
     margin-bottom: 50px;
 }
-.gallery a{
+.gallery .card{
     margin-right: 15px;
 }
 .load-more{
@@ -455,14 +500,12 @@ ul{
     width: 100%;
     border-radius: 0 0 8px 8px;
     background-color: white;
+    z-index: 99;
 }
 /**************Animation des filtres***************/
 
 
 
 
-.memooutlinefiltre{
-    outline: auto;
-    outline-color: #215aff;
-}
+
 /*************************** Limite de responsive 969px****************************************************/

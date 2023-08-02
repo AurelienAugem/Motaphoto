@@ -39,7 +39,8 @@
         <div class="single-photo-block">
           <?php 
               //Variable contenant la catégorie de la photo afficher
-              $postCat = wp_get_post_terms($post->ID,'categorie');
+              $postId = get_the_ID();
+              $postCat = wp_get_post_terms($postId,'categorie');
               //Récupérer les éléments de la même catégorie
                 $args = array(
                   'post_type' => 'photo_mota',
@@ -51,6 +52,7 @@
                       'terms' => array($postCat[0]->slug),
                     ),
                   ),
+                  'post__not_in' => array($postId),
                 );
                 $query = new wp_query($args);
                 if($query->have_posts()) : while($query->have_posts()) : 
@@ -60,7 +62,10 @@
                 get_template_part('templates/photo_block');
            ?>
           <?php   
-            endwhile; endif;
+            endwhile; 
+            else: 
+              echo '<p>' . "Aucune photo similaire trouvée" . '</p>';
+            endif;
             wp_reset_postdata();
           ?>
         </div>
