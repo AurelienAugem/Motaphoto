@@ -22,8 +22,10 @@ function showForm() {
     }  
 }
 contact.addEventListener('click', showForm);
-if(contactButton != null){
+try {
     contactButton.addEventListener('click', showForm);
+} catch (error) {
+    console.log('Le bouton contact n\'est pas présent sur cette page');
 }
 
 //Préremplissage du formulaire
@@ -34,22 +36,25 @@ function autoForm(){
     refPhoto.setAttribute('value', ref.textContent);
 }
 
-if(contactButton !== null){
-contactButton.addEventListener('click', autoForm);
+try {
+    contactButton.addEventListener('click', autoForm);
+} catch (error) {
+    console.log('Le bouton contact ne peut être complété');
 }
 
-if(ref !== null){
+try {
     contact.addEventListener('click', autoForm);
-} else {
+} catch (error) {
     console.log('Pas de référence sur cette page');
 }
+
 
 //Gestion des filtres 
 let btnCat = document.querySelector('#btn-categorie');
 let btnForm = document.querySelector('#btn-format');
 let btnTri = document.querySelector('#btn-tri');
 
-if(btnCat !== null && btnForm !== null && btnTri !== null){
+try{
     let menuCat = document.querySelector('#menu-categorie');
     let menuFormat = document.querySelector('#menu-format');
     let menuTri = document.querySelector('#menu-tri');
@@ -80,6 +85,6 @@ if(btnCat !== null && btnForm !== null && btnTri !== null){
     btnForm.addEventListener('click', function(){showFilter(btnForm,menuFormat);});
     btnTri.addEventListener('click', function(){showFilter(btnTri,menuTri);} );
 
-} else {
+} catch (error){
     console.log('Pas de filtres sur cette page');
 }

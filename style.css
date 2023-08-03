@@ -264,6 +264,7 @@ ul{
     margin-bottom: 40px;
 }
 .post-title{
+    width: 50%;
     margin-bottom: 0;
 }
 .post-content{
