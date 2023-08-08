@@ -7,7 +7,7 @@
             <ul id="menu-categorie" class="show-filter filter-hide">
                 <?php foreach ($categories as $categorie) : ?>
                     <li value="<?php echo $categorie->name; ?>">
-                        <a><?php echo $categorie->name; ?></a>
+                        <a class="photo-categorie" id="<?php echo $categorie->slug ?>"><?php echo $categorie->name; ?></a>
                     </li>
                 <?php endforeach; ?>
             </ul> 
@@ -19,7 +19,7 @@
             <ul id="menu-format" class="show-filter filter-hide">
                 <?php foreach ($formats as $format) : ?>
                     <li value="<?php echo $format->name; ?>">
-                        <a><?php echo $format->name; ?></a>
+                        <a class="photo-format" id="<?php echo $format->slug ?>"><?php echo $format->name; ?></a>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -31,8 +31,8 @@
         <div id="filtre-date" name="tri">
             <p id="btn-tri" class="titre-filtre">Trier par...</p>
             <ul id="menu-tri" class="show-filter filter-hide">
-                <li><a>plus anciennes aux plus récentes</a></li>
-                <li><a>plus récentes aux plus anciennes</a></li>
+                <li><a class="photo-date" id="new-photo">plus anciennes aux plus récentes</a></li>
+                <li><a class="photo-date" id="old-photo">plus récentes aux plus anciennes</a></li>
             </ul>
         </div>
     </div>

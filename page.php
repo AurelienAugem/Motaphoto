@@ -20,6 +20,9 @@
                 $args = array(
                   'post_type' => 'photo_mota',
                   'posts_per_page' => 8,
+                  'orderby' => 'date',
+                  'order' => 'DESC',
+                  'paged' => 1,
                 );
                 $query = new wp_query($args);
                 if($query->have_posts()) : while($query->have_posts()) : 
@@ -31,7 +34,8 @@
             wp_reset_postdata();
           ?>
       </div>
-      <input type="submit" class="mota-btn load-more" value="Charger plus">
+      <input type="submit" id="mota-load-more" class="mota-btn load-more" value="Charger plus" novalidate 
+      data-ajaxurl="<?php echo admin_url( 'admin-ajax.php' ); ?>" >
     </section>
    <?php endif; ?>
 </div>

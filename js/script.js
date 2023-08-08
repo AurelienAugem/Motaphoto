@@ -88,3 +88,52 @@ try{
 } catch (error){
     console.log('Pas de filtres sur cette page');
 }
+
+//Affichage des photos en plein écran
+try {  
+    let lightboxes = document.querySelectorAll('.photo-lightbox');
+    
+    for (let index = 0; index < lightboxes.length; index++) {
+        let lightbox = lightboxes[index];
+        let lightboxStyle = window.getComputedStyle(lightbox);
+        let lightboxDisplay = lightboxStyle.getPropertyValue('display');
+        let btnFullscreen = document.querySelectorAll('.fullscreen');
+        let btnCloseFullscreen = document.querySelectorAll('.close');
+        
+        function showLightbox() {
+            if(lightboxDisplay == "none"){
+                lightbox.style.setProperty('display', 'flex');
+            } else if(lightboxDisplay == "flex"){
+                lightbox.style.setProperty('display', 'none');
+            }
+        }
+        //Ouverture de la lightbox
+        btnFullscreen.forEach((btn, btnIndex) => {
+            btn.setAttribute('index', btnIndex);
+
+            btn.addEventListener('click', function() {
+                let btnIndex = btn.getAttribute('index');
+                let lightbox = lightboxes[btnIndex];
+                let lightboxStyle = window.getComputedStyle(lightbox);
+                lightboxDisplay = lightboxStyle.getPropertyValue('display');
+                showLightbox();
+            });
+        });
+        //Fermeture de la lightbox
+        btnCloseFullscreen.forEach((btn, btnIndex) => {
+            btn.setAttribute('index', btnIndex);
+
+            btn.addEventListener('click', function() {
+                let btnIndex = btn.getAttribute('index');
+                let lightbox = lightboxes[btnIndex];
+                let lightboxStyle = window.getComputedStyle(lightbox);
+                lightboxDisplay = lightboxStyle.getPropertyValue('display');
+                showLightbox();
+            });
+        });
+    }
+  
+} catch (error) {
+    
+}
+

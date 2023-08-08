@@ -3,10 +3,10 @@
                 <a class="card-thumbnail" href=""></a>
             </div> 
             <div class="slider-nav">
-                <a class="left-arrow arrow" href="">
+                <a class="left-arrow arrow">
                     <img src="<?php echo get_template_directory_uri() . "./assets/images/left.png"?>">
                 </a>
-                <a class="right-arrow arrow" href="">
+                <a class="right-arrow arrow">
                     <img src="<?php echo get_template_directory_uri() . "./assets/images/right.png"?>">
                 </a>
             </div>

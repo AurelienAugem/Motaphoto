@@ -126,7 +126,7 @@ ul{
     flex-direction: column;
     justify-content: center;
     position: relative;
-    z-index: 10;
+    z-index: 1;
 }
 
 #menu-footer li{
@@ -386,6 +386,7 @@ ul{
     background-size: contain;
     margin: 10px 20px;
     align-self: end;
+    cursor: pointer;
 }
 .photo-link{
     height: 31px;
@@ -406,6 +407,89 @@ ul{
     color: white;
     text-transform: uppercase;
     user-select: none;
+}
+.photo-lightbox{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 99;
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.photo-show{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.photo-show figure{
+    width: 50%;
+}
+.photo-show .left-arrow{
+    padding: 0;
+}
+.photo-show .arrow{
+    font-size: 12px;
+    font-family: "space_monoregular";
+    color: white;
+    cursor: pointer;
+}
+.photo-show .arrow:hover{
+    font-family: "space_monobold";
+}
+.arrow-style{
+    font-size: 18px;
+}
+.photo-full{
+    object-fit: contain;
+    align-self: center;
+}
+.arrow{
+    align-self: center;
+}
+.photo-full .photo-info{
+    padding:0;
+    justify-content: space-evenly;
+}
+.display-close{
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 90%;
+    justify-content: flex-end;
+    cursor: default;
+    position: absolute;
+    top: 10px;
+}
+.close{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 3%;
+}
+.close:hover{
+    cursor: pointer;
+}
+.barre{
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    box-sizing: border-box;
+}
+.barre-1{
+    display: flex;
+    position: absolute;
+    transform: rotate(45deg);
+}
+.barre-2{
+    display: flex;
+    position: absolute;
+    transform: rotate(-45deg);
 }
 /******************* Galerie ***************************/
 .page{
@@ -481,7 +565,7 @@ ul{
     font-size: 18px;
     transform: rotate(var(--rotate,90deg));
     transform-origin: center;
-    transition: transform 250ms linear;
+    transition: transform 150ms linear;
 }
 .filter-hide{
     display: none;
@@ -503,6 +587,7 @@ ul{
     background-color: white;
     z-index: 99;
 }
+
 /**************Animation des filtres***************/
 
 

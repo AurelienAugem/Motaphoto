@@ -29,6 +29,54 @@ function motaphoto_script(){
 }
 add_action('wp_enqueue_scripts', 'motaphoto_script');
 
+//Import jQuery
+function import_jquery(){
+    wp_enqueue_script('jquery');
+}
+add_action('wp_enqueue_scripts', 'import_jquery');
+
+//Chargement du script AJAX
+function motaphoto_script_ajax(){
+    wp_enqueue_script(
+        'ajax',
+        get_template_directory_uri() . '/js/ajax.js',
+        array('jquery'),
+        1.0,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'motaphoto_script_ajax');
+
+//Requête AJAX <<charger plus>>
+function motaphoto_load_more(){
+
+    $args = array(
+        'post_type' => 'photo_mota',
+        'posts_per_page' => 8,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'paged' => $_POST['paged'],
+      );
+
+    $ajaxQuery =  new wp_query($args);
+
+    $result = '';
+
+    if($ajaxQuery->have_posts()){ while($ajaxQuery->have_posts()) : 
+        $ajaxQuery->the_post();
+    
+        $result .= get_template_part('templates/photo_block');
+
+        endwhile; 
+    } else {
+        $result = '';
+    }
+    echo $result;
+    exit;
+}
+add_action('wp_ajax_motaphoto_load_more', 'motaphoto_load_more');
+add_action('wp_ajax_nopriv_motaphoto_load_more', 'motaphoto_load_more');
+
 //Enregistrement du menu d'en-tête et pied-de-page
 function motaphoto_register_menus() {
     register_nav_menus(
@@ -56,3 +104,4 @@ function motaphoto_taxo($args){
         $taxonomie = $arg->name;
     }return $taxonomie;
 }
+
