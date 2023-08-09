@@ -63,6 +63,7 @@ try{
 
         let btnParent = btn.parentNode;
         let btnGrandParent = btnParent.parentNode;
+        let menuLast = menu.querySelector('li:last-child');
 
         if(menu.classList.contains('filter-hide')){
 
@@ -70,6 +71,9 @@ try{
             btnGrandParent.style.setProperty('border-radius','8px 8px 0 0');
             btn.style.setProperty('--rotate','270deg');
             menu.classList.remove('filter-hide');
+            menuLast.addEventListener('mouseenter', function () {
+                this.style.setProperty('border-radius', '0 0 8px 8px');
+            });
 
         } else {
 
@@ -92,48 +96,34 @@ try{
 //Affichage des photos en plein écran
 try {  
     let lightboxes = document.querySelectorAll('.photo-lightbox');
-    
-    for (let index = 0; index < lightboxes.length; index++) {
-        let lightbox = lightboxes[index];
+
+    function showLightbox(lightbox) {
         let lightboxStyle = window.getComputedStyle(lightbox);
         let lightboxDisplay = lightboxStyle.getPropertyValue('display');
-        let btnFullscreen = document.querySelectorAll('.fullscreen');
-        let btnCloseFullscreen = document.querySelectorAll('.close');
-        
-        function showLightbox() {
-            if(lightboxDisplay == "none"){
-                lightbox.style.setProperty('display', 'flex');
-            } else if(lightboxDisplay == "flex"){
-                lightbox.style.setProperty('display', 'none');
-            }
+
+        if (lightboxDisplay == "none") {
+            lightbox.style.setProperty('display', 'flex');
+        } else if (lightboxDisplay == "flex") {
+            lightbox.style.setProperty('display', 'none');
         }
-        //Ouverture de la lightbox
-        btnFullscreen.forEach((btn, btnIndex) => {
-            btn.setAttribute('index', btnIndex);
-
-            btn.addEventListener('click', function() {
-                let btnIndex = btn.getAttribute('index');
-                let lightbox = lightboxes[btnIndex];
-                let lightboxStyle = window.getComputedStyle(lightbox);
-                lightboxDisplay = lightboxStyle.getPropertyValue('display');
-                showLightbox();
-            });
-        });
-        //Fermeture de la lightbox
-        btnCloseFullscreen.forEach((btn, btnIndex) => {
-            btn.setAttribute('index', btnIndex);
-
-            btn.addEventListener('click', function() {
-                let btnIndex = btn.getAttribute('index');
-                let lightbox = lightboxes[btnIndex];
-                let lightboxStyle = window.getComputedStyle(lightbox);
-                lightboxDisplay = lightboxStyle.getPropertyValue('display');
-                showLightbox();
-            });
-        });
     }
-  
+
+    let btnFullscreen = document.querySelectorAll('.fullscreen');
+    let btnCloseFullscreen = document.querySelectorAll('.close');
+
+    // Ouverture et fermeture de la lightbox pour chaque bouton
+    btnFullscreen.forEach((btn, btnIndex) => {
+        btn.addEventListener('click', function () {
+            showLightbox(lightboxes[btnIndex]);
+        });
+    });
+
+    btnCloseFullscreen.forEach((btn, btnIndex) => {
+        btn.addEventListener('click', function () {
+            showLightbox(lightboxes[btnIndex]);
+        });
+    });
+
 } catch (error) {
     
 }
-

@@ -144,6 +144,9 @@ ul{
     border-top: solid 1px;
     border-color: black;
 }
+#menu-item-27 p{
+    user-select: none;
+}
 
 /*************** Formulaire ***************/
 @keyframes show-form {
@@ -535,7 +538,7 @@ ul{
 }
 /********** Filtres  ***********/
 .btn-filters{
-    width: 260px;
+    width: 270px;
     height: 42px;
     border: solid 1px;
     border-radius: 8px;
