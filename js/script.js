@@ -92,6 +92,133 @@ try{
 } catch (error){
     console.log('Pas de filtres sur cette page');
 }
+// Affichage des menus des filtres
+try {
+    (function ($) {
+        $(document).ready(function () {
+
+            let categorieFiltre = $('#btn-categorie');
+            let formatFiltre = $('#btn-format');
+            let dateFiltre = $('#btn-tri');
+
+            let categorie = $('.photo-categorie');
+            let format = $('.photo-format');
+            let date = $('.photo-date');
+
+            //Catégorie
+            categorie.each(function() {
+                let select = $(this).parent();
+                select.on('click', function() {
+                    let cat = $(this).find('.photo-categorie');
+                    let siblings = $(this).siblings().find('.photo-categorie');
+                    let listeFiltres = select.parent();
+                    let finDeListe = listeFiltres.find('li').last();
+                    finDeListe.css("border-radius", "0 0 8px 8px");
+                    let menu = $(this).parent();
+                    let bordure = menu.parent().parent();
+
+                    if (cat.hasClass("active")) {
+                        menu.addClass('filter-hide');
+                        bordure.css("border-color", "#b8bbc2");
+                        bordure.css("border-radius", "8px");
+                        $(this).css("background-color", "white");
+                        cat.css("color", "#313144");
+                        categorieFiltre.text("Catégorie");
+                        cat.removeClass('active');
+                    } else {
+                        menu.addClass('filter-hide');
+                        bordure.css("border-color", "#215aff");
+                        $(this).css("background-color", "#E00000");
+                        cat.css("color", "white");
+                        categorieFiltre.text(cat.attr('id'));
+                        cat.addClass('active');
+                        $(this).siblings().css("background-color", "white");
+                        siblings.removeClass('active');
+                        siblings.css("color", "#313144");
+                        console.log('Galerie filtrée par la catégorie: ' + cat.text());
+                    }
+                });
+            });
+
+            //Format
+            format.each(function() {
+                let select = $(this).parent();
+                select.on('click', function() {
+                    let form = $(this).find('.photo-format');
+                    let siblings = $(this).siblings().find('.photo-format');
+                    let listeFiltres = select.parent();
+                    let finDeListe = listeFiltres.find('li').last();
+                    finDeListe.css("border-radius", "0 0 8px 8px");
+                    let menu = $(this).parent();
+                    let bordure = menu.parent().parent();
+
+                    if (form.hasClass("active")) {
+                        menu.addClass('filter-hide');
+                        bordure.css("border-color", "#b8bbc2");
+                        bordure.css("border-radius", "8px");
+                        $(this).css("background-color", "white");
+                        form.css("color", "#313144");
+                        formatFiltre.text("Format");
+                        form.removeClass('active');
+                    } else {
+                        menu.addClass('filter-hide');
+                        bordure.css("border-color", "#215aff");
+                        $(this).css("background-color", "#E00000");
+                        form.css("color", "white");
+                        formatFiltre.text(form.attr('id'));
+                        form.addClass('active');
+                        $(this).siblings().css("background-color", "white");
+                        siblings.removeClass('active');
+                        siblings.css("color", "#313144");
+                        console.log('Galerie filtrée par le format: ' + form.text());
+                    }
+                });
+            });
+
+            //Date
+            date.each(function() {
+                let select = $(this).parent();
+                select.on('click', function() {
+                    let date = $(this).find('.photo-date');
+                    let siblings = $(this).siblings().find('.photo-date');
+                    let listeFiltres = select.parent();
+                    let finDeListe = listeFiltres.find('li').last();
+                    finDeListe.css("border-radius", "0 0 8px 8px");
+                    let menu = $(this).parent();
+                    let bordure = menu.parent().parent();
+
+                    if (date.hasClass("active")) {
+                        menu.addClass('filter-hide');
+                        bordure.css("border-color", "#b8bbc2");
+                        bordure.css("border-radius", "8px");
+                        $(this).css("background-color", "white");
+                        date.css("color", "#313144");
+                        dateFiltre.text("Trier par...");
+                        date.removeClass('active');
+                    } else {
+                        menu.addClass('filter-hide');
+                        bordure.css("border-color", "#215aff");
+                        $(this).css("background-color", "#E00000");
+                        date.css("color", "white");
+                        dateFiltre.text(date.text());
+                        date.addClass('active');
+                        $(this).siblings().css("background-color", "white");
+                        siblings.removeClass('active');
+                        siblings.css("color", "#313144");
+                        if (date.data('id') == "ASC") {
+                            console.log('Galerie filtrée dans l\'ordre chronolique croissant');
+                        } else if (date.data('id') == "DESC") {
+                            console.log('Galerie filtrée dans l\'ordre chronolique décroissant');
+                        }
+                    }
+                });
+            });
+
+        });
+    })(jQuery);
+} catch (error) {
+    
+}
 
 //Affichage des photos en plein écran
 try {  
@@ -103,8 +230,10 @@ try {
 
         if (lightboxDisplay == "none") {
             lightbox.style.setProperty('display', 'flex');
+            document.body.classList.add('no-scroll');
         } else if (lightboxDisplay == "flex") {
             lightbox.style.setProperty('display', 'none');
+            document.body.classList.remove('no-scroll');
         }
     }
 
