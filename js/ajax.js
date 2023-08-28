@@ -1,28 +1,9 @@
 (function ($) {
     $(document).ready(function () {
-
-        //Ajax charger plus de photos dans la galerie
+        // ------------------------ Ajax gestion des filtres ------------------------------- //
         let btnLoadMore = $('#mota-load-more');
         let ajaxUrl = btnLoadMore.attr('data-ajaxurl');
-        let currentPage = 1;
 
-        btnLoadMore.on('click', function () {
-            currentPage++;
-            $.ajax({
-                type: 'POST',
-                url: ajaxUrl,
-                dataType: 'html',
-                data: {
-                    action: 'motaphoto_load_more',
-                    paged: currentPage,
-                },
-                success: function (res) {
-                $('.gallery').append(res);
-                }
-            });
-        });
-
-        // ------------------------ Ajax gestion des filtres ------------------------------- //
         let categorie = $('.photo-categorie');
         let format = $('.photo-format');
         let date = $('.photo-date');
@@ -45,6 +26,7 @@
                         },
                         success: function(res) {
                             $('.gallery').html(res);
+                            fullscreenLightbox();
                         }
                     });
                     
@@ -70,6 +52,7 @@
                         },
                         success: function(res) {
                             $('.gallery').html(res);
+                            fullscreenLightbox();
                         }
                     });
 
@@ -95,12 +78,115 @@
                         },
                         success: function(res) {
                             $('.gallery').html(res);
+                            fullscreenLightbox();
                         }
                     });
                     
                 } 
             });
         });
+        
+        //Ajax charger plus de photos dans la galerie
+        
+        let currentPage = 1;
 
+        btnLoadMore.on('click', function () {
+            if (categorie.hasClass('active')) {
+                currentPage++;
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUrl,
+                    dataType: 'html',
+                    data: {
+                        action: 'motaphoto_global_filter',
+                        paged: currentPage,
+                        categorie: categorie.data('slug'),
+                    },
+                    success: function (res) {
+                    $('.gallery').append(res);
+                    fullscreenLightbox();
+                    }
+                });
+                
+            }else if (format.hasClass('active')) {
+                currentPage++;
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUrl,
+                    dataType: 'html',
+                    data: {
+                        action: 'motaphoto_global_filter',
+                        paged: currentPage,
+                        format: format.data('slug'),
+                    },
+                    success: function (res) {
+                    $('.gallery').append(res);
+                    fullscreenLightbox();
+                    }
+                });
+                
+            }else if (date.hasClass('active')) {
+                currentPage++;
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUrl,
+                    dataType: 'html',
+                    data: {
+                        action: 'motaphoto_global_filter',
+                        paged: currentPage,
+                        orderDate: date.data('slug'),
+                    },
+                    success: function (res) {
+                    $('.gallery').append(res);
+                    fullscreenLightbox();
+                    }
+                });
+                
+            }else {
+                currentPage++;
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUrl,
+                    dataType: 'html',
+                    data: {
+                        action: 'motaphoto_load_more',
+                        paged: currentPage,
+                    },
+                    success: function (res) {
+                    $('.gallery').append(res);
+                    fullscreenLightbox();
+                    }
+                });
+            }
+            
+        });
+
+        //Toutes les photos de la même catégorie que celle dont les informations sont affichées
+        let sameCat = $('.same-cat');
+        let ajaxUrlCat = sameCat.attr('data-ajaxurl')
+
+        sameCat.on('click', function() {
+            let ajaxData = $(this);
+
+            $('.single-photo-block').empty();
+
+            console.log(ajaxData.data('slug') + ajaxData.data('id') + ajaxUrlCat);
+            
+            $.ajax({
+                type: 'POST',
+                url: ajaxUrlCat,
+                dataType: 'html',
+                data: {
+                    action: 'motaphoto_all_photos',
+                    category: ajaxData.data('slug'),
+                    id: ajaxData.data('id'),
+                },
+                success: function(res) {
+                    $('.single-photo-block').html(res);
+                    fullscreenLightbox();
+                }
+            });
+        })
+        
     });
   })(jQuery);

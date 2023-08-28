@@ -29,13 +29,16 @@ try {
 }
 
 //Préremplissage du formulaire
+
 let ref = document.querySelector('#reference');
 
 function autoForm(){
     let refPhoto = document.querySelector('.ref-photo');
-    refPhoto.setAttribute('value', ref.textContent);
+    if (ref != null) {
+        refPhoto.setAttribute('value', ref.textContent);
+    }   
 }
-
+    
 try {
     contactButton.addEventListener('click', autoForm);
 } catch (error) {
@@ -222,8 +225,7 @@ try {
 
 //Affichage des photos en plein écran
 try {  
-    let lightboxes = document.querySelectorAll('.photo-lightbox');
-
+    //Affichage de la lightbox
     function showLightbox(lightbox) {
         let lightboxStyle = window.getComputedStyle(lightbox);
         let lightboxDisplay = lightboxStyle.getPropertyValue('display');
@@ -237,21 +239,29 @@ try {
         }
     }
 
-    let btnFullscreen = document.querySelectorAll('.fullscreen');
-    let btnCloseFullscreen = document.querySelectorAll('.close');
+    function fullscreenLightbox() {
+        let lightboxes = document.querySelectorAll('.photo-lightbox');
+        let btnFullscreen = document.querySelectorAll('.fullscreen');
+        let btnCloseFullscreen = document.querySelectorAll('.close');
 
-    // Ouverture et fermeture de la lightbox pour chaque bouton
-    btnFullscreen.forEach((btn, btnIndex) => {
-        btn.addEventListener('click', function () {
-            showLightbox(lightboxes[btnIndex]);
+        // Ouverture et fermeture de la lightbox pour chaque bouton
+        btnFullscreen.forEach((btn, btnIndex) => {
+            btn.addEventListener('click', function () {
+                showLightbox(lightboxes[btnIndex]);
+            });
         });
-    });
 
-    btnCloseFullscreen.forEach((btn, btnIndex) => {
-        btn.addEventListener('click', function () {
-            showLightbox(lightboxes[btnIndex]);
+        btnCloseFullscreen.forEach((btn, btnIndex) => {
+            btn.addEventListener('click', function () {
+                showLightbox(lightboxes[btnIndex]);
+            });
         });
-    });
+    }
+    //Lorsque la page est chargée les boutons ouverture et fermeture des lightboxes sont fonctionnels
+    document.addEventListener('DOMContentLoaded', function () {
+        fullscreenLightbox();
+    })
+    
 
 } catch (error) {
     

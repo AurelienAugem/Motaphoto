@@ -11,6 +11,7 @@
       $form = get_the_terms($post->ID,'format');
       $categorie = motaphoto_taxo($cat);
       $format = motaphoto_taxo($form);
+
     ?>
       <section class="post">
         <div class="post-desc">
@@ -69,7 +70,14 @@
             wp_reset_postdata();
           ?>
         </div>
-        <input class="show-all mota-btn" type="submit" value="Toutes les photos">
+        <input 
+          class="show-all mota-btn same-cat" 
+          data-slug="<?php echo $cat[0]->slug ?>" 
+          data-ajaxurl="<?php echo admin_url( 'admin-ajax.php' ); ?>"
+          data-id ="<?php echo $post->ID ?>" 
+          type="submit" 
+          value="Toutes les photos"
+        >
       </section>
     <?php endwhile; ?>
   <?php endif; ?>

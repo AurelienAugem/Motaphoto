@@ -77,6 +77,45 @@ function motaphoto_load_more(){
 add_action('wp_ajax_motaphoto_load_more', 'motaphoto_load_more');
 add_action('wp_ajax_nopriv_motaphoto_load_more', 'motaphoto_load_more');
 
+//Requête AJAX Toutes les photos d'une catégorie
+function motaphoto_all_photos(){
+
+    $categorie = $_POST['category'];
+    $id = $_POST['id'];
+
+    $args = array(
+        'post_type' => 'photo_mota',
+        'posts_per_page' => -1,
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'categorie',
+                'field' => 'slug',
+                'terms' => $categorie,
+            ),
+            
+        ),
+        'post_not_in' => $id,
+    );
+
+    $ajaxQuery =  new wp_query($args);
+
+    $result = '';
+
+    if($ajaxQuery->have_posts()){ while($ajaxQuery->have_posts()) : 
+        $ajaxQuery->the_post();
+    
+        $result .= get_template_part('templates/photo_block');
+
+        endwhile; 
+    } else {
+        $result = '';
+    }
+    echo $result;
+    exit;
+}
+add_action('wp_ajax_motaphoto_all_photos', 'motaphoto_all_photos');
+add_action('wp_ajax_nopriv_motaphoto_all_photos', 'motaphoto_all_photos');
+
 //AJAX Filtres
 //Filtre global
 
