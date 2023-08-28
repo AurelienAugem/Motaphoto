@@ -21,12 +21,30 @@ function showForm() {
 
     }  
 }
-contact.addEventListener('click', showForm);
+
+contact.addEventListener('click', function (e) {
+    showForm();
+    e.stopPropagation();
+});
+
 try {
-    contactButton.addEventListener('click', showForm);
+    contactButton.addEventListener('click', function (e) {
+        showForm();
+        e.stopPropagation();
+    });
 } catch (error) {
     console.log('Le bouton contact n\'est pas présent sur cette page');
 }
+
+document.addEventListener('click', function(e){
+    if (formulaire && !formulaire.contains(e.target)) {
+
+        formulaire.classList.remove('form-animation');
+        formulaire.classList.add('hide');
+        formulaire.classList.add('hidden');
+        formulaire.classList.remove('show');
+    }
+});
 
 //Préremplissage du formulaire
 
