@@ -335,8 +335,14 @@ ul{
     justify-content: flex-end;
 }
 .card-thumbnail{
+    display: flex;
+    align-items: center;
     width: 81px;
     height: 71px;
+    overflow: hidden;
+}
+.card-thumbnail figure img{
+    object-fit: cover;
 }
 .slider-nav{
     display: flex;
@@ -459,6 +465,9 @@ ul{
 }
 .arrow{
     align-self: center;
+}
+.arrow:hover{
+    cursor: pointer;
 }
 .photo-full .photo-info{
     padding:0;
@@ -598,10 +607,19 @@ ul{
     z-index: 99;
 }
 
-
-
-
-
-
-
 /*************************** Limite de responsive 969px****************************************************/
+
+@media screen and (max-width: 970px) {
+
+    
+    
+    #menu-footer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #menu-footer li{
+        padding-top: 30px;
+    }
+
+}

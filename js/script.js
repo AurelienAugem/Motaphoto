@@ -37,7 +37,7 @@ try {
 }
 
 document.addEventListener('click', function(e){
-    if (formulaire && !formulaire.contains(e.target)) {
+    if (!formulaire.contains(e.target) && formulaire.classList.contains("show")) {
 
         formulaire.classList.remove('form-animation');
         formulaire.classList.add('hide');

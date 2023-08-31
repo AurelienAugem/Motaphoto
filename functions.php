@@ -47,6 +47,63 @@ function motaphoto_script_ajax(){
 }
 add_action('wp_enqueue_scripts', 'motaphoto_script_ajax');
 
+//Transmettre des<variables php vers le script ajax
+    //Nombre total de photos
+    wp_enqueue_scripts('ajax', get_template_directory_uri() . '/js/ajax.js', array('jquery'));
+
+    $args = array(
+        'post_type' => 'photo_mota',
+        'post_per-page' => -1,
+    );
+
+    $query = new wp_query($args);
+    $nbPhotos = $query->found_posts;
+
+    wp_reset_postdata();
+
+    $dataNbPhotos = 'let totalPhotos = ' . wp_json_encode($nbPhotos) . ';';
+    wp_add_inline_script('ajax', $dataNbPhotos);
+
+    //Premier ID de photo
+    $args = array(
+        'post_type' => 'photo_mota',
+        'post_per-page' => 1,
+        'orderby' => 'date',
+        'order' => 'DESC',
+    );
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $firstID = get_the_ID();
+        }
+
+        wp_reset_postdata(); 
+    }
+
+    $dataFirstID = 'let firstID = ' . wp_json_encode($firstID) . ';';
+    wp_add_inline_script('ajax', $dataFirstID);
+
+    //Dernier ID de photo
+    $args = array(
+        'post_type' => 'photo_mota',
+        'post_per-page' => 1,
+        'orderby' => 'date',
+        'order' => 'ASC',
+    );
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $lastID = get_the_ID();
+        }
+
+        wp_reset_postdata(); 
+    }
+
+    $dataLastID = 'let lastID = ' . wp_json_encode($lastID) . ';';
+    wp_add_inline_script('ajax', $dataLastID);
+
 //Requête AJAX <<charger plus>>
 function motaphoto_load_more(){
 
@@ -94,7 +151,7 @@ function motaphoto_all_photos(){
             ),
             
         ),
-        'post_not_in' => $id,
+        'post__not_in' => array($id),
     );
 
     $ajaxQuery =  new wp_query($args);
@@ -115,6 +172,40 @@ function motaphoto_all_photos(){
 }
 add_action('wp_ajax_motaphoto_all_photos', 'motaphoto_all_photos');
 add_action('wp_ajax_nopriv_motaphoto_all_photos', 'motaphoto_all_photos');
+
+//AJAX Thumbnail
+function motaphoto_thumbnail(){
+    $page = $_POST['page'];
+    $ids = array($_POST['id']);
+
+    $args = array(
+        'post_type' => 'photo_mota',
+        'posts_per_page' => 1,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'paged' => $page,
+        'post__not_in' => $ids,
+        );
+
+    $ajaxQuery =  new wp_query($args);
+
+    $result = '';
+    
+    if($ajaxQuery->have_posts()){ while($ajaxQuery->have_posts()) : 
+        $ajaxQuery->the_post();
+        
+        $result .= get_template_part('templates/photo_slider');
+    
+        endwhile; 
+    } else {
+        $result = '';
+    }
+    echo $result;
+    exit;    
+
+}
+add_action('wp_ajax_motaphoto_thumbnail', 'motaphoto_thumbnail');
+add_action('wp_ajax_nopriv_motaphoto_thumbnail', 'motaphoto_thumbnail');
 
 //AJAX Filtres
 //Filtre global

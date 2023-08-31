@@ -165,12 +165,11 @@
         let sameCat = $('.same-cat');
         let ajaxUrlCat = sameCat.attr('data-ajaxurl')
 
-        sameCat.on('click', function() {
+        sameCat.on('click', function(e) {
             let ajaxData = $(this);
+            e.preventDefault();
 
             $('.single-photo-block').empty();
-
-            console.log(ajaxData.data('slug') + ajaxData.data('id') + ajaxUrlCat);
             
             $.ajax({
                 type: 'POST',
@@ -187,6 +186,63 @@
                 }
             });
         })
+
+        //Slider de la page single
+        //La variable totalPhotos est envoyé depuis le fichier functions.php
+        let cardThumbnail = $('.card-thumbnail');
+        let arrow = $('.arrow');
+        
+        arrow.on('click', function(){
+            let currentArrow = $(this);
+            let ajaxUrl = currentArrow.attr('data-ajaxurl');
+            cardThumbnail.empty();
+
+            if (currentArrow.hasClass('left-arrow')) {
+                currentPage--;
+
+                if (currentPage < 1) {
+                    currentPage = totalPhotos - 1;
+                    currentArrow.data('id', lastID);
+                }
+               
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUrl,
+                    dataType: 'html',
+                    data: {
+                        action: 'motaphoto_thumbnail',
+                        page: currentPage,
+                        id: currentArrow.data('id'),
+                    },
+                    success: function(res){
+                        cardThumbnail.html(res);
+                    }
+    
+                });
+            }else if (currentArrow.hasClass('right-arrow')) {
+                currentPage++;
+
+                if (currentPage > totalPhotos - 1) {
+                    currentPage = 1;
+                    currentArrow.data('id', firstID);
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUrlCat,
+                    dataType: 'html',
+                    data: {
+                        action: 'motaphoto_thumbnail',
+                        page: currentPage,
+                        id: currentArrow.data('id'),
+                    },
+                    success: function(res){
+                        cardThumbnail.html(res);
+                    }
+                });
+            }
+
+        });
         
     });
   })(jQuery);

@@ -3,16 +3,15 @@
 <div class="main single">
   <?php if (have_posts()) : ?>
     <?php while (have_posts()) : the_post(); ?>
-    <?php
-      //Récupérer la catégorie, le format, la référence et le type de la photo 
-      $reference = get_post_meta(get_the_ID(),'reference', true);
-      $type = get_post_meta(get_the_ID(),'type', true);
-      $cat = get_the_terms($post->ID,'categorie');
-      $form = get_the_terms($post->ID,'format');
-      $categorie = motaphoto_taxo($cat);
-      $format = motaphoto_taxo($form);
-
-    ?>
+      <?php
+        //Récupérer la catégorie, le format, la référence et le type de la photo 
+        $reference = get_post_meta(get_the_ID(),'reference', true);
+        $type = get_post_meta(get_the_ID(),'type', true);
+        $cat = get_the_terms($post->ID,'categorie');
+        $form = get_the_terms($post->ID,'format');
+        $categorie = motaphoto_taxo($cat);
+        $format = motaphoto_taxo($form);
+      ?>
       <section class="post">
         <div class="post-desc">
           <h2 class="post-title"><?php the_title(); ?></h2>
@@ -31,7 +30,45 @@
             <p>Cette Photo vous intéresse ?</p>
             <input class="post-contact mota-btn" type="submit" value="Contact">
           </div>
-          <?php get_template_part('templates/photo_slider'); ?>
+          <div class="slider">
+            <div class="slider-thumbnail">
+                <?php 
+                    $currentPostID = get_the_ID();
+
+                    $args = array(
+                        'post_type' => 'photo_mota',
+                        'paged'=>1,
+                        'posts_per_page' => 1,
+                        'orderby' => 'date',
+                        'order' => 'DESC',
+                        'post__not_in' => array($currentPostID),
+                        );
+                    $query = new wp_query($args);
+                    if($query->have_posts()) : while($query->have_posts()) : 
+                        $query->the_post();
+                ?>
+                <?php get_template_part('templates/photo_slider'); ?>
+                <?php 
+                        endwhile; 
+                    else: 
+                        echo '<p>' . "Aucune photo similaire trouvée" . '</p>';
+                    endif;
+                    wp_reset_postdata();
+                ?>
+            </div> 
+            <div class="slider-nav">
+                <a class="left-arrow arrow"  
+                  data-id="<?php echo $post->ID ?>" 
+                  data-ajaxurl="<?php echo admin_url( 'admin-ajax.php' ); ?>">
+                    <img src="<?php echo get_template_directory_uri() . "./assets/images/left.png"?>">
+                </a>
+                <a class="right-arrow arrow" 
+                  data-id="<?php echo $post->ID ?>" 
+                  data-ajaxurl="<?php echo admin_url( 'admin-ajax.php' ); ?>">
+                    <img src="<?php echo get_template_directory_uri() . "./assets/images/right.png"?>">
+                </a>
+            </div>
+          </div>
         </div> 
       </section>
       <div class="border"></div>
@@ -63,7 +100,7 @@
                 get_template_part('templates/photo_block');
            ?>
           <?php   
-            endwhile; 
+              endwhile; 
             else: 
               echo '<p>' . "Aucune photo similaire trouvée" . '</p>';
             endif;
