@@ -29,6 +29,18 @@ function motaphoto_script(){
 }
 add_action('wp_enqueue_scripts', 'motaphoto_script');
 
+//Chargement du script gérant la partie responsive
+function motaphoto_responsive_script(){
+    wp_enqueue_script(
+        'responsive_script',
+        get_template_directory_uri() . '/js/responsive.js',
+        array(),
+        1.0,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'motaphoto_responsive_script');
+
 //Import jQuery
 function import_jquery(){
     wp_enqueue_script('jquery');

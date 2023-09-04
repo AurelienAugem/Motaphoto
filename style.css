@@ -102,12 +102,19 @@ ul{
 }
 
 /*************** Affichage Header ****************/
-
 .display-header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     box-shadow: 0px 4px 14px 10px rgba(0, 0, 0, 0.03);
+}
+
+.responsive-header{
+    display: none;
+}
+
+.responsive-menu .menu-header-container{
+    display: none;
 }
 
 .logo{
@@ -611,8 +618,72 @@ ul{
 
 @media screen and (max-width: 970px) {
 
-    
-    
+    .display-header{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        box-shadow: 0px 4px 14px 10px rgba(0, 0, 0, 0.03);
+    }
+    .responsive-header{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-self: center;
+        padding: 0;
+        height: 15px;
+        box-sizing: border-box;
+        background-color: white;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+    .responsive-menu{
+        display: flex;
+        justify-content: center;
+    }
+    .menu-line{
+        height: 2px;
+        width: 20px;
+        border-radius: 1px;
+        background-color: black;
+        box-sizing: border-box;
+    }
+    .display-header .menu-header-container{
+        display: none;
+    }
+    .menu-header-container{
+        margin: 0;
+    }
+    #menu-header-1{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 6.25em;
+        background-color: #e00000;
+        height: 100vh;
+        width: 100vh;
+    }
+    #menu-header-1 li{
+        padding-top: 3.125em;
+    }
+    #menu-header-1 li a{
+        font-size: 2.75em;
+        color: white;
+    }
+    .logo{
+        margin: 1em 0 1em 3em;
+        width: 9em;
+        height: 0.5em;
+        align-self: center;
+    }
+    .filters, .taxonomies{
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .btn-filters{
+        margin-top: 20px;
+    }
     #menu-footer{
         display: flex;
         flex-direction: column;

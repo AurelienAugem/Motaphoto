@@ -11,6 +11,14 @@
     <header>
         <div class="display-header">
             <img class="logo" src= <?php echo get_template_directory_uri() . '/assets/images/logo.png'; ?> alt="Logo du site Motaphoto">
+            <button class="responsive-header menu-close">
+                <span class="menu-line top-line"></span>
+                <span class="menu-line middle-line"></span>
+                <span class="menu-line bottom-line"></span>
+            </button>
+            <?php wp_nav_menu(array('theme_location' => 'main'));?>
+        </div>
+        <div class="responsive-menu">
             <?php wp_nav_menu(array('theme_location' => 'main'));?>
         </div>
     </header>
