@@ -41,3 +41,20 @@ function showHeaderMenu(){
 }
 
 btnHeader.addEventListener('click', showHeaderMenu);
+
+try {
+
+    let single = document.querySelector('.post');
+    let singleDesc = document.querySelector('.post-desc');
+    let singlePhoto = document.querySelector('.post-content');
+
+    if (window.innerWidth <= 970) {
+        
+        single.insertBefore(singlePhoto, singleDesc);
+
+    }       
+    
+} catch (error) {
+    
+}
+

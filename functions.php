@@ -121,7 +121,7 @@ function motaphoto_load_more(){
 
     $args = array(
         'post_type' => 'photo_mota',
-        'posts_per_page' => 8,
+        'posts_per_page' => 12,
         'orderby' => 'date',
         'order' => 'DESC',
         'paged' => $_POST['paged'],
@@ -234,7 +234,7 @@ function motaphoto_global_filter(){
     if(isset($categorie) && isset($format) && isset($orderDate)){
         $args = array(
             'post_type' => 'photo_mota',
-            'posts_per_page' => 8,
+            'posts_per_page' => 12,
             'orderby' => 'date',
             'order' => $orderDate,
             'relation' => 'AND',
@@ -256,7 +256,7 @@ function motaphoto_global_filter(){
     if(isset($categorie) && !isset($format) && !isset($orderDate)){
         $args = array(
             'post_type' => 'photo_mota',
-            'posts_per_page' => 8,
+            'posts_per_page' => 12,
             'tax_query' => array(
                 array(
                     'taxonomy' => 'categorie',
@@ -271,7 +271,7 @@ function motaphoto_global_filter(){
     if(!isset($categorie) && isset($format) && !isset($orderDate)){
         $args = array(
             'post_type' => 'photo_mota',
-            'posts_per_page' => 8,
+            'posts_per_page' => 12,
             'tax_query' => array(
                 array(
                     'taxonomy' => 'format',
@@ -285,7 +285,7 @@ function motaphoto_global_filter(){
     if(!isset($categorie) && !isset($format) && isset($orderDate)){
         $args = array(
             'post_type' => 'photo_mota',
-            'posts_per_page' => 8,
+            'posts_per_page' => 12,
             'orderby' => 'date',
             'order' => $orderDate,
         );
@@ -294,7 +294,7 @@ function motaphoto_global_filter(){
     if (isset($categorie) && isset($format) && !isset($orderDate)) {
         $args = array(
             'post_type' => 'photo_mota',
-            'posts_per_page' => 8,
+            'posts_per_page' => 12,
             'relation' => 'AND',
             'tax_query' => array(
                 array(
@@ -314,7 +314,7 @@ function motaphoto_global_filter(){
     if (!isset($categorie) && isset($format) && isset($orderDate)) {
         $args = array(
             'post_type' => 'photo_mota',
-            'posts_per_page' => 8,
+            'posts_per_page' => 12,
             'orderby' => 'date',
             'order' => $orderDate,
             'relation' => 'AND',
@@ -331,7 +331,7 @@ function motaphoto_global_filter(){
     if (isset($categorie) && !isset($format) && isset($orderDate)) {
         $args = array(
             'post_type' => 'photo_mota',
-            'posts_per_page' => 8,
+            'posts_per_page' => 12,
             'orderby' => 'date',
             'order' => $orderDate,
             'relation' => 'AND',

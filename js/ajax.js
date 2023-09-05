@@ -190,7 +190,7 @@
         //Slider de la page single
         //La variable totalPhotos est envoyé depuis le fichier functions.php
         let cardThumbnail = $('.card-thumbnail');
-        let arrow = $('.arrow');
+        let arrow = $('.slider-nav .arrow');
         
         arrow.on('click', function(){
             let currentArrow = $(this);

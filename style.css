@@ -473,6 +473,9 @@ ul{
 .arrow{
     align-self: center;
 }
+.arrow span{
+    user-select: none;
+}
 .arrow:hover{
     cursor: pointer;
 }
@@ -559,7 +562,7 @@ ul{
     display: flex;
     align-self: center;
 }
-/********** Filtres  ***********/
+/********************** Filtres  ************************/
 .btn-filters{
     width: 270px;
     height: 42px;
@@ -614,10 +617,14 @@ ul{
     z-index: 99;
 }
 
-/*************************** Limite de responsive 969px****************************************************/
+/************************************************************ Limite de responsive 969px****************************************************/
+/**************************************************************** Partie responsive ********************************************************/
 
 @media screen and (max-width: 970px) {
 
+    h2{
+        font-size: 22px;
+    }
     .display-header{
         display: flex;
         flex-direction: row;
@@ -684,13 +691,42 @@ ul{
     .btn-filters{
         margin-top: 20px;
     }
+    .single{
+        padding: 0;
+    }
+    .post{
+        flex-direction: column;
+    }
+    .post-border{
+        width: 200%;
+    }
+    .slider{
+        display: none;
+    }
+    .post-footer{
+        flex-direction: column;
+    }
+    .single-gallery h3{
+        align-self: center;
+    }
+    .pf-contact{
+        flex-direction: column;
+    }
+    .mota-btn{
+        width: 263px;
+        align-self: center;
+    }
     #menu-footer{
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding-left: 0;
     }
     #menu-footer li{
         padding-top: 30px;
+    }
+    .formulaire-contact{
+        left: -30%;
     }
 
 }

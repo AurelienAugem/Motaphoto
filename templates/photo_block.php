@@ -1,9 +1,14 @@
 
     <div class="card">
-     <div class="image-card">
-      <?php       
-          the_content(); 
-        ?>
+      <div class="image-card">
+      <?php if (wp_is_mobile()) : ?>
+
+        <a href="<?php echo get_permalink();?>">
+          <?php the_content(); ?>
+        </a>
+
+      <?php else : ?>  
+        <?php the_content(); ?>
         <div class="card-overlay">
           <span class="fullscreen"></span>
           <a class="photo-link" href="<?php echo get_permalink();?>"></a>
@@ -12,6 +17,7 @@
             <p class="text-tax"><?php echo get_the_terms($post->ID,'categorie')[0]->name; ?></p>
           </div>
         </div>
+      <?php endif; ?>  
       </div>
     </div>
     <div class="photo-lightbox">

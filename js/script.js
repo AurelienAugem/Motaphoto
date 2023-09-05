@@ -11,6 +11,7 @@ function showForm() {
         formulaire.classList.add('form-animation');
         formulaire.classList.add('show');
         formulaire.classList.remove('hidden');
+        document.body.classList.add('no-scroll');
 
     }else if(formulaire.classList.contains("show")){
 
@@ -18,6 +19,7 @@ function showForm() {
         formulaire.classList.add('hide');
         formulaire.classList.add('hidden');
         formulaire.classList.remove('show');
+        document.body.classList.remove('no-scroll');
 
     }  
 }
@@ -43,6 +45,7 @@ document.addEventListener('click', function(e){
         formulaire.classList.add('hide');
         formulaire.classList.add('hidden');
         formulaire.classList.remove('show');
+        document.body.classList.remove('no-scroll');
     }
 });
 

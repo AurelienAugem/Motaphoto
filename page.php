@@ -19,7 +19,7 @@
       <?php 
                 $args = array(
                   'post_type' => 'photo_mota',
-                  'posts_per_page' => 8,
+                  'posts_per_page' => 12,
                   'orderby' => 'date',
                   'order' => 'DESC',
                   'paged' => 1,
