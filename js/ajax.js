@@ -243,6 +243,65 @@
             }
 
         });
+
+        //Slider lightbox des photos de la galerie 
+        let photo = $('.photo-content');
+        let galleryArrow = $('.photo-show .arrow');
+
+        galleryArrow.on('click', function(){
+            let currentArrow = $(this);
+            let currentID = currentArrow.data('id');
+            let ajaxUrl = currentArrow.attr('data-ajaxurl');
+            photo.empty();
+
+            if (currentArrow.hasClass('left-arrow')) {
+                currentPage--;
+
+                if (currentPage < 1) {
+                    currentPage = totalPhotos - 1;
+                    currentArrow.data('id', lastID);
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUrl,
+                    dataType: 'html',
+                    data: {
+                        action: 'motaphoto_lightbox',
+                        page: currentPage,
+                        id: currentID,
+                    },
+                    success: function(res){
+                        photo.html(res);
+                    }
+    
+                });
+
+            } else if (currentArrow.hasClass('right-arrow')) {
+                currentPage++;
+
+                if (currentPage > totalPhotos - 1) {
+                    currentPage = 1;
+                    currentArrow.data('id', firstID);
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUrl,
+                    dataType: 'html',
+                    data: {
+                        action: 'motaphoto_lightbox',
+                        page: currentPage,
+                        id: currentID,
+                    },
+                    success: function(res){
+                        photo.html(res);
+                    }
+    
+                });
+            }
+        });
+
         
     });
   })(jQuery);

@@ -448,6 +448,9 @@ ul{
     flex-direction: row;
     justify-content: space-around;
 }
+.photo-show .photo-content{
+    display: contents;
+}
 .photo-show figure{
     width: 50%;
 }

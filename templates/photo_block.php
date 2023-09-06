@@ -29,9 +29,19 @@
       </div>
       <div class="photo-full">
         <div class="photo-show">
-          <a class="left-arrow arrow"><span class="arrow-style">&#x27F5;</span>  Précédente</a>
-          <?php the_content(); ?>
-          <a class="right-arrow arrow">Suivante <span class="arrow-style">&#x27F6;</span></a>
+          <a class="left-arrow arrow"
+            data-id="<?php echo $post->ID ?>" 
+            data-ajaxurl="<?php echo admin_url( 'admin-ajax.php' ); ?>">
+              <span class="arrow-style">&#x27F5;</span>  Précédente
+          </a>
+          <div class="photo-content">
+            <?php the_content(); ?>
+          </div>
+          <a class="right-arrow arrow"
+            data-id="<?php echo $post->ID ?>" 
+            data-ajaxurl="<?php echo admin_url( 'admin-ajax.php' ); ?>">
+              Suivante <span class="arrow-style">&#x27F6;</span>
+          </a>
         </div>
         <div class="photo-info">
           <p class="text-tax"><?php echo get_post_meta(get_the_ID(),'reference', true); ?></p>
