@@ -7,7 +7,7 @@ Description: Thème du site Motaphoto
 Version: 1.0
 */
 
-/********************************** Import local des polices ************************************/
+/************************************************** Import local des polices ***********************************************************************/
 @font-face {
     font-family: 'space_monobold_italic';
     src: url('./assets/fonts/spacemono-bolditalic-webfont.woff2') format('woff2');
@@ -42,7 +42,7 @@ Version: 1.0
     font-family: 'poppinsbold';
     src: url('./assets/fonts/poppins-bold-webfont.woff2') format('woff2');
 }
-/**************************** Configuration générale **********************************/
+/****************************************************** Configuration générale ********************************************************************/
 h1{
     font-family: 'space_monobold_italic';
     font-size: 96px;
@@ -101,7 +101,7 @@ ul{
     overflow-y: hidden;
 }
 
-/*************** Affichage Header ****************/
+/**************************************************************** Affichage Header *******************************************************************/
 .display-header{
     display: flex;
     flex-direction: row;
@@ -132,7 +132,7 @@ ul{
     margin:0.875em 9.125em;
 }
 
-/************** Affichage Footer ****************/
+/********************************************************************* Affichage Footer ************************************************************/
 .display-footer{
     display: flex;
     flex-direction: column;
@@ -160,7 +160,7 @@ ul{
     user-select: none;
 }
 
-/*************** Formulaire ***************/
+/******************************************************************** Formulaire *******************************************************************/
 @keyframes show-form {
     0%{
         opacity: 0;
@@ -258,7 +258,7 @@ ul{
 .wpcf7-spinner{
     display: none;
 } 
-/*************** Affichage photo *********************/
+/*************************************************************** Affichage photo *****************************************************************/
 .single{
     position: relative;
     z-index: 10;
@@ -359,7 +359,7 @@ ul{
 .left-arrow{
     padding-right: 29px;
 }
-/************************* Affichage des photos **********************************/
+/***************************************************************** Affichage des photos *************************************************************/
 .single-gallery{
     display: flex;
     flex-direction: column;
@@ -523,7 +523,7 @@ ul{
     position: absolute;
     transform: rotate(-45deg);
 }
-/******************* Galerie ***************************/
+/************************************************************************ Galerie **************************************************************/
 .page{
     display: flex;
     flex-direction: column;
@@ -565,7 +565,7 @@ ul{
     display: flex;
     align-self: center;
 }
-/********************** Filtres  ************************/
+/********************************************************************* Filtres  ****************************************************************/
 .btn-filters{
     width: 270px;
     height: 42px;

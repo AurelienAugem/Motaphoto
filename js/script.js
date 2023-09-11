@@ -63,7 +63,7 @@ function autoForm(){
 try {
     contactButton.addEventListener('click', autoForm);
 } catch (error) {
-    console.log('Le bouton contact ne peut être complété');
+    console.log('Le bouton contact ne peut être complété sur la page d\'accueil');
 }
 
 try {
@@ -278,12 +278,12 @@ try {
             });
         });
     }
+    
     //Lorsque la page est chargée les boutons ouverture et fermeture des lightboxes sont fonctionnels
     document.addEventListener('DOMContentLoaded', function () {
         fullscreenLightbox();
-    })
+    });
     
-
 } catch (error) {
     
 }

@@ -8,89 +8,53 @@
         let format = $('.photo-format');
         let date = $('.photo-date');
 
-        //Catégorie
-        categorie.each(function() {
-            let select = $(this).parent();
-            select.on('click', function() {
-                let cat = $(this).find('.photo-categorie');
-                
-                if (cat.hasClass("active")) {
+        let select = $('.photo-categorie, .photo-format, .photo-date').parent();
 
-                    $.ajax({
-                        type: 'POST',
-                        url: ajaxUrl,
-                        dataType: 'html',
-                        data: {
-                            action: 'motaphoto_global_filter',
-                            category: cat.data('slug'),
-                        },
-                        success: function(res) {
-                            $('.gallery').html(res);
-                            fullscreenLightbox();
-                        }
-                    });
-                    
-                } 
-            });
+        select.on('click', function() {
+            let filtre = $(this).children();
+
+            if (filtre.hasClass('active')) {
+                
+                let selectedCategory = $('.photo-categorie.active').data('slug');
+                let selectedFormat = $('.photo-format.active').data('slug');
+                let selectedDate = $('.photo-date.active').data('slug');
+
+                let queryData = {
+                    action: 'motaphoto_global_filter',
+                };
+
+                if (selectedCategory) {
+                    queryData.category = selectedCategory;
+                }
+
+                if (selectedFormat) {
+                    queryData.format = selectedFormat;
+                }
+
+                if (selectedDate) {
+                    queryData.orderDate = selectedDate;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUrl,
+                    dataType: 'html',
+                    data: queryData,
+                    success: function(res) {
+                        $('.gallery').html(res);
+                        fullscreenLightbox();
+                    }
+                });
+            }      
         });
 
-        //Format
-        format.each(function() {
-            let select = $(this).parent();
-            select.on('click', function() {
-                let form = $(this).find('.photo-format');
-                
-                if (form.hasClass("active")) {
-
-                    $.ajax({
-                        type: 'POST',
-                        url: ajaxUrl,
-                        dataType: 'html',
-                        data: {
-                            action: 'motaphoto_global_filter',
-                            format: form.data('slug'),
-                        },
-                        success: function(res) {
-                            $('.gallery').html(res);
-                            fullscreenLightbox();
-                        }
-                    });
-
-                } 
-            });
-        });
-
-        //Date
-        date.each(function() {
-            let select = $(this).parent();
-            select.on('click', function() {
-                let date = $(this).find('.photo-date');
-                
-                if (date.hasClass("active")) {
-
-                    $.ajax({
-                        type: 'POST',
-                        url: ajaxUrl,
-                        dataType: 'html',
-                        data: {
-                            action: 'motaphoto_global_filter',
-                            orderDate: date.data('slug'),
-                        },
-                        success: function(res) {
-                            $('.gallery').html(res);
-                            fullscreenLightbox();
-                        }
-                    });
-                    
-                } 
-            });
-        });
-        
         //Ajax charger plus de photos dans la galerie
         
         let currentPage = 1;
 
-        btnLoadMore.on('click', function () {
+        btnLoadMore.on('click', function (e) {
+            e.preventDefault();
+
             if (categorie.hasClass('active')) {
                 currentPage++;
                 $.ajax({
@@ -158,7 +122,7 @@
                     }
                 });
             }
-            
+            fullscreenLightbox();
         });
 
         //Toutes les photos de la même catégorie que celle dont les informations sont affichées
@@ -189,6 +153,7 @@
 
         //Slider de la page single
         //La variable totalPhotos est envoyé depuis le fichier functions.php
+        let sliderPage = 1;
         let cardThumbnail = $('.card-thumbnail');
         let arrow = $('.slider-nav .arrow');
         
@@ -198,10 +163,10 @@
             cardThumbnail.empty();
 
             if (currentArrow.hasClass('left-arrow')) {
-                currentPage--;
+                sliderPage--;
 
-                if (currentPage < 1) {
-                    currentPage = totalPhotos - 1;
+                if (sliderPage < 1) {
+                    sliderPage = totalPhotos - 1;
                     currentArrow.data('id', lastID);
                 }
                
@@ -211,7 +176,7 @@
                     dataType: 'html',
                     data: {
                         action: 'motaphoto_thumbnail',
-                        page: currentPage,
+                        page: sliderPage,
                         id: currentArrow.data('id'),
                     },
                     success: function(res){
@@ -220,10 +185,10 @@
     
                 });
             }else if (currentArrow.hasClass('right-arrow')) {
-                currentPage++;
+                sliderPage++;
 
-                if (currentPage > totalPhotos - 1) {
-                    currentPage = 1;
+                if (sliderPage > totalPhotos - 1) {
+                    sliderPage = 1;
                     currentArrow.data('id', firstID);
                 }
 
@@ -233,7 +198,7 @@
                     dataType: 'html',
                     data: {
                         action: 'motaphoto_thumbnail',
-                        page: currentPage,
+                        page: sliderPage,
                         id: currentArrow.data('id'),
                     },
                     success: function(res){
@@ -255,10 +220,10 @@
             photo.empty();
 
             if (currentArrow.hasClass('left-arrow')) {
-                currentPage--;
+                sliderPage--;
 
-                if (currentPage < 1) {
-                    currentPage = totalPhotos - 1;
+                if (sliderPage < 1) {
+                    sliderPage = totalPhotos - 1;
                     currentArrow.data('id', lastID);
                 }
 
@@ -268,7 +233,7 @@
                     dataType: 'html',
                     data: {
                         action: 'motaphoto_lightbox',
-                        page: currentPage,
+                        page: sliderPage,
                         id: currentID,
                     },
                     success: function(res){
@@ -278,10 +243,10 @@
                 });
 
             } else if (currentArrow.hasClass('right-arrow')) {
-                currentPage++;
+                sliderPage++;
 
-                if (currentPage > totalPhotos - 1) {
-                    currentPage = 1;
+                if (sliderPage > totalPhotos - 1) {
+                    sliderPage = 1;
                     currentArrow.data('id', firstID);
                 }
 
@@ -291,7 +256,7 @@
                     dataType: 'html',
                     data: {
                         action: 'motaphoto_lightbox',
-                        page: currentPage,
+                        page: sliderPage,
                         id: currentID,
                     },
                     success: function(res){

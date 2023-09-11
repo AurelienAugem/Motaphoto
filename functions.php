@@ -122,14 +122,20 @@ add_action('wp_enqueue_scripts', 'motaphoto_script_ajax');
 
 //Requête AJAX <<charger plus>>
 function motaphoto_load_more(){
+   
+    $page = $_POST['paged'];
+    $categorie = $_POST['category'];
+    $format = $_POST['format'];
+    $orderDate = $_POST['orderDate'];
 
-    $args = array(
-        'post_type' => 'photo_mota',
-        'posts_per_page' => 12,
-        'orderby' => 'date',
-        'order' => 'DESC',
-        'paged' => $_POST['paged'],
-      );
+
+        $args = array(
+            'post_type' => 'photo_mota',
+            'posts_per_page' => 12,
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'paged' => $page,
+          );
 
     $ajaxQuery =  new wp_query($args);
 
