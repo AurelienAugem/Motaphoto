@@ -45,12 +45,12 @@ Version: 1.0
 /****************************************************** Configuration générale ********************************************************************/
 h1{
     font-family: 'space_monobold_italic';
-    font-size: 96px;
+    font-size: 66px;
 }
 
 h2{
     font-family: 'space_monoitalic';
-    font-size: 66px;
+    font-size: 44px;
     text-transform: uppercase;
 }
 
@@ -378,8 +378,8 @@ ul{
 }
 
 .card figure img{
-    height: 495px;
-    width: 564px;
+    height: 31em;
+    width: 35.25em;
     object-fit: cover;
 }
 .image-card{
@@ -454,9 +454,6 @@ ul{
 .photo-show figure{
     width: 50%;
 }
-.photo-show .left-arrow{
-    padding: 0;
-}
 .photo-show .arrow{
     font-size: 12px;
     font-family: "space_monoregular";
@@ -481,6 +478,15 @@ ul{
 }
 .arrow:hover{
     cursor: pointer;
+}
+.arrow-loc{
+    position: absolute;
+}
+.photo-show .left-arrow{
+    left: 1em;
+}
+.photo-show .right-arrow{
+    right: 1em;
 }
 .photo-full .photo-info{
     padding:0;
@@ -564,8 +570,24 @@ ul{
 .load-more{
     display: flex;
     align-self: center;
+    justify-content: center;
 }
 /********************************************************************* Filtres  ****************************************************************/
+
+@keyframes filter-animation {
+    0%{
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.filter-show-animation{
+    animation: filter-animation 300ms;
+}
+
 .btn-filters{
     width: 270px;
     height: 42px;
@@ -604,6 +626,8 @@ ul{
 }
 .btn-filters ul li{
     padding: 11px 24px;
+    border-left: solid 1px #b8bbc2;
+    border-right: solid 1px #b8bbc2;
 }
 .btn-filters ul li a{
     user-select: none;
@@ -624,6 +648,21 @@ ul{
 /**************************************************************** Partie responsive ********************************************************/
 
 @media screen and (max-width: 970px) {
+
+    @keyframes show-menu {
+        0%{
+            transform:translateY(1000px);
+            opacity:0;
+        }
+        100%{
+            transform:translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .menu-animation-show{
+        animation: show-menu 500ms;
+    }
 
     h2{
         font-size: 22px;
@@ -650,6 +689,9 @@ ul{
     .responsive-menu{
         display: flex;
         justify-content: center;
+        position: absolute;
+        left: 0;
+        right: 0;
     }
     .menu-line{
         height: 2px;

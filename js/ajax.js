@@ -43,6 +43,7 @@
                     success: function(res) {
                         $('.gallery').html(res);
                         fullscreenLightbox();
+                        slidePhotoLightbox()
                     }
                 });
             }      
@@ -69,6 +70,7 @@
                     success: function (res) {
                     $('.gallery').append(res);
                     fullscreenLightbox();
+                    slidePhotoLightbox()
                     }
                 });
                 
@@ -86,6 +88,7 @@
                     success: function (res) {
                     $('.gallery').append(res);
                     fullscreenLightbox();
+                    slidePhotoLightbox()
                     }
                 });
                 
@@ -103,6 +106,7 @@
                     success: function (res) {
                     $('.gallery').append(res);
                     fullscreenLightbox();
+                    slidePhotoLightbox()
                     }
                 });
                 
@@ -119,6 +123,7 @@
                     success: function (res) {
                     $('.gallery').append(res);
                     fullscreenLightbox();
+                    slidePhotoLightbox()
                     }
                 });
             }
@@ -147,6 +152,7 @@
                 success: function(res) {
                     $('.single-photo-block').html(res);
                     fullscreenLightbox();
+                    slidePhotoLightbox()
                 }
             });
         })
@@ -184,6 +190,7 @@
                     }
     
                 });
+
             }else if (currentArrow.hasClass('right-arrow')) {
                 sliderPage++;
 
@@ -210,62 +217,82 @@
         });
 
         //Slider lightbox des photos de la galerie 
-        let photo = $('.photo-content');
-        let galleryArrow = $('.photo-show .arrow');
+        function slidePhotoLightbox(){
 
-        galleryArrow.on('click', function(){
-            let currentArrow = $(this);
-            let currentID = currentArrow.data('id');
-            let ajaxUrl = currentArrow.attr('data-ajaxurl');
-            photo.empty();
+            let photo = $('.photo-content');
+            let photoRef = $('.photo-ref');
+            let photoCat = $('.photo-cat');
+            let galleryArrow = $('.photo-show .arrow');
 
-            if (currentArrow.hasClass('left-arrow')) {
-                sliderPage--;
+            galleryArrow.on('click', function(){
+                let currentArrow = $(this);
+                let currentID = currentArrow.data('id');
+                let ajaxUrl = currentArrow.attr('data-ajaxurl');
 
-                if (sliderPage < 1) {
-                    sliderPage = totalPhotos - 1;
-                    currentArrow.data('id', lastID);
-                }
+                if (currentArrow.hasClass('left-arrow')) {
+                    sliderPage--;
 
-                $.ajax({
-                    type: 'POST',
-                    url: ajaxUrl,
-                    dataType: 'html',
-                    data: {
-                        action: 'motaphoto_lightbox',
-                        page: sliderPage,
-                        id: currentID,
-                    },
-                    success: function(res){
-                        photo.html(res);
+                    if (sliderPage < 1) {
+                        sliderPage = totalPhotos - 1;
+                        currentArrow.data('id', lastID);
                     }
-    
-                });
 
-            } else if (currentArrow.hasClass('right-arrow')) {
-                sliderPage++;
+                    $.ajax({
+                        type: 'POST',
+                        url: ajaxUrl,
+                        dataType: 'html',
+                        data: {
+                            action: 'motaphoto_lightbox',
+                            page: sliderPage,
+                            id: currentID,
+                        },
+                        success: function(res){
+                            let photoContent = JSON.parse(res);
 
-                if (sliderPage > totalPhotos - 1) {
-                    sliderPage = 1;
-                    currentArrow.data('id', firstID);
-                }
+                            photo.empty();
+                            photoCat.empty();
+                            photoRef.empty();
+                            photo.html(photoContent[0].content);
+                            photoCat.html(photoContent[0].cat);
+                            photoRef.html(photoContent[0].ref);
+                        }
+        
+                    });
 
-                $.ajax({
-                    type: 'POST',
-                    url: ajaxUrl,
-                    dataType: 'html',
-                    data: {
-                        action: 'motaphoto_lightbox',
-                        page: sliderPage,
-                        id: currentID,
-                    },
-                    success: function(res){
-                        photo.html(res);
+                } else if (currentArrow.hasClass('right-arrow')) {
+                    sliderPage++;
+
+                    if (sliderPage > totalPhotos - 1) {
+                        sliderPage = 1;
+                        currentArrow.data('id', firstID);
                     }
-    
-                });
-            }
-        });
+
+                    $.ajax({
+                        type: 'POST',
+                        url: ajaxUrl,
+                        dataType: 'html',
+                        data: {
+                            action: 'motaphoto_lightbox',
+                            page: sliderPage,
+                            id: currentID,
+                        },
+                        success: function(res){
+                            let photoContent = JSON.parse(res);
+
+                            photo.empty();
+                            photoCat.empty();
+                            photoRef.empty();
+                            photo.html(photoContent[0].content);
+                            photoCat.html(photoContent[0].cat);
+                            photoRef.html(photoContent[0].ref);
+                        }
+        
+                    });
+                }
+            });
+        }
+        $(document).ready(slidePhotoLightbox());
+        
 
         
     });

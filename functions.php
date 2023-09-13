@@ -244,18 +244,28 @@ function motaphoto_lightbox(){
 
     $ajaxQuery =  new wp_query($args);
 
-    $result = '';
+    $result = array();
     
     if($ajaxQuery->have_posts()){ while($ajaxQuery->have_posts()) : 
         $ajaxQuery->the_post();
+
+        $ref = get_post_meta(get_the_ID(),'reference', true);
+        $cat = get_the_terms($post->ID,'categorie')[0]->name;
         
-        $result = the_content();
+        $result[] = array(
+            'ref' => $ref,
+            'cat' => $cat,
+            'content' => get_the_content(),
+        );
     
         endwhile; 
     } else {
         $result = '';
     }
-    echo $result;
+
+    $jsonResult = wp_json_encode($result);
+
+    echo $jsonResult;
     exit;   
 }
 add_action('wp_ajax_motaphoto_lightbox', 'motaphoto_lightbox');

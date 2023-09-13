@@ -95,6 +95,7 @@ try{
             btnGrandParent.style.setProperty('border-radius','8px 8px 0 0');
             btn.style.setProperty('--rotate','270deg');
             menu.classList.remove('filter-hide');
+            menu.classList.add('filter-show-animation');
             menuLast.addEventListener('mouseenter', function () {
                 this.style.setProperty('border-radius', '0 0 8px 8px');
             });

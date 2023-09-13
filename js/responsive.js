@@ -23,6 +23,7 @@ function showHeaderMenu(){
         mainContent.style.display = "none";
         footer.style.display = "none";
         menu.style.display = "block";
+        menu.classList.add('menu-animation-show');
         
     }else if (btnHeader.classList.contains('menu-open')) {
         
