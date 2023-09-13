@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motaphoto</title>
+    <meta name="description" content="Site de la photographe professionnelle d'evenementiel Nathalie Mota"> 
     <?php wp_head() ?>
 </head>
 
